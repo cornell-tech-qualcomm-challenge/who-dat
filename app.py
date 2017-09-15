@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 from datetime import datetime
-from flask_pymongo import PyMongo
+from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask import request
 from flask import jsonify
@@ -22,10 +22,10 @@ _APP_ID_ = 'fcca8995'
 _CONTENT_TYPE_ = 'application/json'
 _GALLERY_NAME_ = 'WHODATTEST'
 
-app.config['MONGO_DBNAME'] = 'restdb'
-app.config['MONGO_URI'] = 'mongodb://heroku_hss4cbmf:l9om2njf67q23vsloq9t394jk8@ds135444.mlab.com:35444/heroku_hss4cbmf'
+MONGO_URI = 'mongodb://heroku_hss4cbmf:l9om2njf67q23vsloq9t394jk8@ds135444.mlab.com:35444/heroku_hss4cbmf'
 
-mongo = PyMongo(app)
+client = MongoClient(MONGO_URI)
+db = client.get_default_database()
 
 cloudinary.config( 
   cloud_name = "djv82dqoq", 
@@ -48,7 +48,7 @@ def signuppage():
 
 @app.route('/submit-signup', methods=['POST'])
 def submitsignup():
-    users = mongo.db.users
+    users = db.users
     #print(request.form['name'],request.form['linkedin'])
     #name = request.form['name']
     linkedin = request.form['linkedin']
@@ -74,7 +74,7 @@ def submitpicture():
 	matches = recognize(img_url)
 
 	if(len(matches) != 0):
-		users = mongo.db.users
+		users = db.users
 		userId = matches[0]['subject_id']
 		userInfo = users.find_one({'_id':ObjectId(userId)})
 		return jsonify({'userImage':userInfo.get('img_url'),'linkedin':userInfo.get('linkedin')})
