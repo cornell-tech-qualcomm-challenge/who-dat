@@ -55,7 +55,11 @@ def submitsignup():
     img_resp = cloudinary.uploader.upload(imagefile)
     img_url = img_resp['url']
     user_id = users.insert({'linkedin': linkedin,'img_url':img_url})
-    return jsonify({'result' : '200'})
+    print(str(user_id))
+
+    successfullyEnrolled = enroll(img_url, str(user_id))
+
+    return jsonify({'result':successfullyEnrolled})
 
 
 #@app.route('/enroll',methods=['POST'])
@@ -77,13 +81,13 @@ def enroll(imageUrl, subjectId):
 		print(headers)
 
 		r = requester.post(_BASE_URL_+'enroll', json = body, headers = headers)
-		print(r.content)
-		if(r.content['face_id']):
-			return True
+		print(r.status_code)
+		if(r.status_code == 200):
+			return '200'
 		else:
-			return False
+			return '500'
 	else:
-		return False
+		return '500'
 		
 
 
