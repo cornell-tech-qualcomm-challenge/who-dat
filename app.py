@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from datetime import datetime
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 from flask import request
 from flask import jsonify
 
@@ -62,6 +63,25 @@ def submitsignup():
     return jsonify({'result':successfullyEnrolled})
 
 
+@app.route('/submit-picture', methods=['POST'])
+def submitpicture():
+   
+	imagefile = request.files['imagefile']
+	img_resp = cloudinary.uploader.upload(imagefile)
+	img_url = img_resp['url']
+
+
+	matches = recognize(img_url)
+
+	if(len(matches) != 0):
+		users = mongo.db.users
+		userId = matches[0]['subject_id']
+		userInfo = users.find_one({'_id':ObjectId(userId)})
+		return jsonify({'userImage':userInfo.get('img_url'),'linkedin':userInfo.get('linkedin')})
+	return 'No Matches'
+
+
+
 #@app.route('/enroll',methods=['POST'])
 def enroll(imageUrl, subjectId):
 	data = request.get_json();
@@ -93,9 +113,29 @@ def enroll(imageUrl, subjectId):
 
 	
 
-@app.route('/send-to-kairos')
-def recognize():
+def recognize(imageUrl):
 	print('recognize')
+	if(imageUrl):
+		body = {}
+		body['image'] = imageUrl	
+		body['gallery_name'] = _GALLERY_NAME_
+
+		print(body)
+
+		headers = {}
+		headers['app_id'] = _APP_ID_
+		headers['app_key'] = _APP_KEY_
+		headers['Content-Type'] = _CONTENT_TYPE_
+
+		print(headers)
+
+		r = requester.post(_BASE_URL_+'recognize', json = body, headers = headers)
+		if(r.status_code == 200):
+			responseJson = r.json()
+			print(responseJson)
+			return responseJson['images'][0]['candidates']
+		return '[]'
+
 
 
 if __name__ == '__main__':
