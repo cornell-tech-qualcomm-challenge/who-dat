@@ -1,15 +1,16 @@
-from flask import Flask, request
-import socket
-
+from flask import Flask
+from datetime import datetime
 app = Flask(__name__)
 
 @app.route('/')
-def hello():
-    return 'Hello, world! running on %s' % request.host
+def homepage():
+    the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
+
+    return """
+    <h1>Hello heroku</h1>
+    <p>It is currently {time}.</p>
+    <img src="http://loremflickr.com/600/400" />
+    """.format(time=the_time)
 
 if __name__ == '__main__':
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(('localhost', 0))
-    port = sock.getsockname()[1]
-    sock.close()
-    app.run(port=port)
+    app.run(debug=True, use_reloader=True)
