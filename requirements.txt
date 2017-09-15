@@ -28,9 +28,6 @@ cloudinary==1.8.0
 jsonify==0.5
 mock==2.0.0
 pbr==3.1.1
-post==0.0.0
-public==0.0.0
 pymongo==3.5.1
-query-string==0.0.0
 setupfiles==0.0.50
 request==0.0.0
