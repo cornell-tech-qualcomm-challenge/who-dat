@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, url_for, redirect
 from flask import request
 from datetime import datetime
 from pymongo import MongoClient
@@ -34,17 +34,16 @@ cloudinary.config(
 )
 
 @app.route('/')
-def homepage():
-    #the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
+def index():
+    return(render_template("index.html"))
 
-    return """
-    <h1>Hello heroku</h1>
+@app.route('/signup', methods=['GET'])
+def signup_page():
+    return render_template('sign_up.html')
 
-    """
-
-@app.route('/signup', methods=['POST'])
-def signuppage():
-    return render_template('index.html')
+@app.route('/who_dat', methods=['GET'])
+def who_dat():
+    return render_template('who_dat.html')
 
 @app.route('/submit-signup', methods=['POST'])
 def submitsignup():
@@ -59,9 +58,7 @@ def submitsignup():
     print(str(user_id))
 
     successfullyEnrolled = enroll(img_url, str(user_id))
-
-    return jsonify({'result':successfullyEnrolled})
-
+    return(redirect(url_for('index')))
 
 @app.route('/submit-picture', methods=['POST'])
 def submitpicture():
@@ -77,8 +74,10 @@ def submitpicture():
 		users = db.users
 		userId = matches[0]['subject_id']
 		userInfo = users.find_one({'_id':ObjectId(userId)})
-		return jsonify({'userImage':userInfo.get('img_url'),'linkedin':userInfo.get('linkedin')})
-	return 'No Matches'
+		#return jsonify({'userImage':userInfo.get('img_url'),'linkedin':userInfo.get('linkedin')})
+		print("img_irl: {}".format(userInfo.get('img_url')))
+		return(render_template('display.html', data={'userImage':userInfo.get('img_url'),'linkedin':userInfo.get('linkedin')}))
+	#return 'No Matches'
 
 
 
@@ -119,6 +118,7 @@ def recognize(imageUrl):
 		body = {}
 		body['image'] = imageUrl	
 		body['gallery_name'] = _GALLERY_NAME_
+
 
 		print(body)
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ratchet template page</title>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Include the compiled Ratchet CSS -->
+    <link href="{{ url_for('static', filename='css/ratchet.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/ratchet-theme-ios.min.css') }}" rel="stylesheet">
+
+    <!-- Include the compiled Ratchet JS -->
+    <script src="{{ url_for('static', filename='js/ratchet.js') }}"></script>
+  </head>
+  <body>
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+      <h1 class="title" style="background-color: #D8685A; color: white;">
+          ARU
+        </h1>
+    </header>
+
+   <div class="content">
+       <img class="" src="{{ url_for('static', filename='media/logo_main.png') }}" style="align-content: center;height: 200px; margin-left: 85px; margin-top: 45px; border-radius: 25px; margin-bottom: 35px;">
+  <div class="content-padded">
+      
+      <a class="btn btn-primary btn-block" href="{{ url_for('signup_page') }}" data-transition="slide-in">
+        Sign Up
+      </a>
+      <a class="btn btn-positive btn-block" href="{{ url_for('who_dat') }}" data-transition="slide-in">
+        Who's That?
+      </a>
+<!--
+    <ul class="table-view">
+      <li class="table-view-cell">
+        <a class="navigate-right" href="./sign_up.html" data-transition="slide-in">
+          Sign Up
+        </a>
+      </li>
+        <li class="table-view-cell">
+        <a class="navigate-right" href="./sign_up.html" data-transition="slide-in">
+          Who's Dat?
+        </a>
+      </li>
+    </ul>
+-->
+      
+  </div>
+</div>
+
+  </body>
+</html>

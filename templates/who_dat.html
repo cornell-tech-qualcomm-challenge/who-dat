@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ratchet template page</title>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Include the compiled Ratchet CSS -->
+    <link href="{{ url_for('static', filename='css/ratchet.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/ratchet-theme-ios.min.css') }}" rel="stylesheet">
+
+    <!-- Include the compiled Ratchet JS -->
+    <script src="{{ url_for('static', filename='js/ratchet.js') }}"></script>
+  </head>
+  <body>
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+        <a class="icon icon-left-nav pull-left" href="{{ url_for('index') }}" style="color: white;" data-transition="slide-out"></a>
+      <h1 class="title" style="background-color: #D8685A; color: white;">
+          ARU
+        </h1>
+    </header>
+
+   <div class="content">
+      <div class="content-padded">
+    <form action="{{ url_for('submitpicture') }}" method="post" enctype="multipart/form-data">
+        <label>Upload Portrait</label>
+        <input type="file" name="imagefile" id="imagefile" accept="image/*" id="capture" capture="camera">
+        <button type="submit" name="submit" value="submit" class="btn btn-positive btn-block">Submit</button>
+    </form>
+</div>
+      </div>
+
+  </body>
+</html>
