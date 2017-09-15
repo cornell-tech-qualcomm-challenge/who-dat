@@ -20,7 +20,7 @@ _BASE_URL_ = 'http://api.kairos.com/'
 _APP_KEY_ = '582019432e7dee645075ab35276367bc'
 _APP_ID_ = 'fcca8995'
 _CONTENT_TYPE_ = 'application/json'
-_GALLERY_NAME_ = 'WHODATTEST'
+_GALLERY_NAME_ = 'aru'
 
 MONGO_URI = 'mongodb://heroku_hss4cbmf:l9om2njf67q23vsloq9t394jk8@ds135444.mlab.com:35444/heroku_hss4cbmf'
 
