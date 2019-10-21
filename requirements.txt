@@ -23,7 +23,7 @@ rsa==3.4.2
 six==1.10.0
 urllib3==1.22
 virtualenv==15.1.0
-Werkzeug==0.12.2
+Werkzeug==0.15.3
 cloudinary==1.8.0
 jsonify==0.5
 mock==2.0.0
