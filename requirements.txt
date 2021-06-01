@@ -21,7 +21,7 @@ PyYAML==3.12
 requests==2.18.4
 rsa==3.4.2
 six==1.10.0
-urllib3==1.22
+urllib3==1.26.5
 virtualenv==15.1.0
 Werkzeug==0.12.2
 cloudinary==1.8.0
